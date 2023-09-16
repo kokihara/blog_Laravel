@@ -30,3 +30,6 @@ Route::get('/blog/edit/{id}', 'App\Http\Controllers\BlogController@showEdit')->n
 
 //ブログ内容更新
 Route::post('/blog/update', 'App\Http\Controllers\BlogController@exeUpdate')->name('update');
+
+//ブログ内容削除
+Route::post('/blog/delete/{id}', 'App\Http\Controllers\BlogController@exeDelete')->name('delete');

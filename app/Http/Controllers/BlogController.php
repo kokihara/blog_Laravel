@@ -119,4 +119,27 @@ class BlogController extends Controller
             abort(500);
         }
     }
+
+    /**
+     * ブログ編集画面を削除する
+     * @param  int $id
+     * @return view
+     */
+    public function exeDelete($id)
+    {
+        if (empty($id)) {
+            session()->flash('err_msg', 'データがありません'); //セッションを作成して、メッセージを格納
+            return redirect(route('blogs'));
+        }
+
+        //DB接続エラーアンドのエラーを検知
+        try {
+            Blog::Destroy($id);
+        } catch (\Throwable $e) {
+            abort(500);
+        }
+        session()->flash('err_msg', '削除しました'); //セッションを作成して、メッセージを格納
+        //該当のIDのデータがなかったらブログ一覧画面にリダイレクト
+        return redirect(route('blogs'));
+    }
 }
